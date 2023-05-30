@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { userAdded } from "./usersSlice";
@@ -18,7 +17,7 @@ export function AddUser() {
   const usersAmount = useSelector((state) => state.users.entities.length);
 
   const handleClick = () => {
-    if (name && email) {
+    if (name && email && validateEmail(email)) {
       dispatch(
         userAdded({
           id: usersAmount + 1,
@@ -30,11 +29,17 @@ export function AddUser() {
       setError(null);
       history.push("/home");
     } else {
-      setError("Fill in all fields");
+      setError("Invalid email or fill in all fields");
     }
 
     setName("");
     setEmail("");
+  };
+
+  const validateEmail = (email) => {
+    // Simple email validation regex pattern
+    const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
+    return emailPattern.test(email);
   };
 
   return (
@@ -48,7 +53,7 @@ export function AddUser() {
           <input
             className="u-full-width"
             type="text"
-            placeholder="test@mailbox.com"
+            placeholder="Enter name"
             id="nameInput"
             onChange={handleName}
             value={name}
@@ -57,12 +62,12 @@ export function AddUser() {
           <input
             className="u-full-width"
             type="email"
-            placeholder="test@mailbox.com"
+            placeholder="Enter email"
             id="emailInput"
             onChange={handleEmail}
             value={email}
           />
-          {error && error}
+          {error && <p>{error}</p>}
           <button onClick={handleClick} className="button-primary">
             Add user
           </button>
