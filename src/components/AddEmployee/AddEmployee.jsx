@@ -25,7 +25,7 @@ const handleSubmit=(e)=>{
     <Form.Group>
     <Form.Control type='text' placeholder='Enter the name' required onChange={(e)=> setName(e.target.value)}></Form.Control>
     <Form.Control type='text' placeholder='Enter the age' required onChange={(e)=> setAge(e.target.value)}></Form.Control>
-    <Form.Control type='text' placeholder='Enter the city' required onChange={(e)=> setCity(e.target.value)}></Form.Control>
+    <Form.Control type='text' placeholder='Enter the city name' required onChange={(e)=> setCity(e.target.value)}></Form.Control>
     </Form.Group>
     <Button onClick={(e)=>handleSubmit(e)} type='submit' >Submit</Button>
 </Form>
